@@ -1,0 +1,7 @@
+Development version of the new Educational Gateway
+
+Here we have FeedZilla added to the project
+
+Please run:
+  python manage.py feedzilla_update
+-to update the feeds that are set up
