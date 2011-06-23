@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Framhaldsskólar á Íslandi</h1>
+
+<ul>
+{% for school in schools %}
+<li><a href="{{school.slug}}" title="{{school.name}}">{{school.name}}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}

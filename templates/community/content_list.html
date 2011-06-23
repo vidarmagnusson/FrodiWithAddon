@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="content">
+<h1>{{title}}</h1>
+{% for c in content %}
+<h2><a href="{{c.url}}">{{c.title}}</a></h2>
+{{c.summary}}
+{% endfor %}
+</div>
+{% endblock %}
+

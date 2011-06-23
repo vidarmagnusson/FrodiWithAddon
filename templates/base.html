@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 5.0 Transitional//EN"
+"http://www.w3.org/TR/html5/loose.dtd">
+
+{% load crumbs %}
+
+<html>
+  <head>
+    <title>{{crumbs.0.title}}</title>
+
+    <link rel="stylesheet" href="/media/css/theme.css"/>{% block stylesheet %}
+    {% endblock %}
+
+    <link href="/media/css/humanity/jquery-ui-1.8.9.custom.css" rel="stylesheet" type="text/css"/>
+    <script src="/media/js/jquery-1.4.4.min.js"></script>
+    <script src="/media/js/jquery-ui-1.8.9.custom.min.js"></script>{% block javascript %}
+    {% endblock %}
+  </head>
+  <body>
+    <div id="website">
+	
+      <div id="header">
+	<div id="top-title">
+	  <a title="Menntagátt" href="/">Menntagátt</a>
+	  <div id="admin-tools">
+	        {% if user.is_authenticated %}
+	        <a href="/notendur/utskraning/">Útskráning</a>
+	        {% else %}
+        	<a href="/notendur/innskraning/">Innskráning</a>
+	        <a href="/notendur/nyskraning/">Nýskráning</a>
+        	{% endif %}
+	  </div>
+	</div>
+      </div>
+            
+	<div id="header-image">
+		<div id="random-header"><img src="{{header_img}}"></div>
+		<div id="header-image-crosses">
+  			<div id="header-image-blackbox">
+			</div>
+			<div id="header-highlight">
+			  <div id="header-highlight-heading">Vísinda- vefurinn</div>
+			  <div id="header-highlight-text">Hvað merkja orðin útsuður, landsuður, útnorður og landnorður?</div>
+			</div>
+		</div>
+		{% if crumbs|length > 0 and crumbs.0.children %}<ul id="menu">
+			{% for menuitem in crumbs.0.children %}<li class="{{menuitem.status}}"><a href="{{menuitem.url}}">{{menuitem.title}}</a></li>{% endfor %}
+		</ul>{% endif %}
+	</div>
+
+	<div id="submenu">
+	{% if crumbs|length > 1 and crumbs.1.children %}<ul>
+	{% for menuitem in crumbs.1.children %}<li class="{{menuitem.status}}"><a href="{{menuitem.url}}">{{menuitem.title}}</a></li>{% endfor %}
+	</ul>{% endif %}
+	</div>
+
+	<div id="content-box">
+	{% if crumbs|length > 2 and crumbs.2.children %}
+	<div id="content-menu">
+		<div id="content-title">{{crumbs.2.title}}</div>
+		<div id="content-list">
+			<ul>{% for menuitem in crumbs.2.children %}
+				<li class="headline">{{menuitem.title}}</li>
+				{% for subitem in menuitem.children %}<li class="{{subitem.status}}"><a href="{{subitem.url}}">{{subitem.title}}</a>
+				{% if crumbs|length > 4 and crumbs.4 == subitem and subitem.children %}<ul>
+					{% for subsubitem in subitem.children %}
+						<li class="{{subsubitem.status}}"><a href="{{subsubitem.url}}">{{subsubitem.title}}</a></li>
+					{% endfor %}</ul>
+				{% endif %}
+				</li>{% endfor %}
+		{% endfor %}</ul>
+		</div>
+	</div>{% endif %}
+
+	{% if crumbs|length > 2 and crumbs.2.children and highlights %}<div id="content-main-trisected">
+	{% else %}{% if highlights or crumbs|length > 2 and crumbs.2.children %}<div id="content-main-bisected">
+	{% else %}<div id="content-main">{% endif %}{% endif %}
+	<div id="content-crumbs">Þú ert hér: {% for crumb in crumbs %}<a title="{{crumb.title}}" href="{{crumb.url}}">{% if forloop.last %}{{crumb.title}}</a>{% else %}{% if forloop.first %}{{crumb.title}}</a> > {% else %}{{crumb.title|truncatestring:6}}</a> > {% endif %}{% endif%}{% endfor %}</div>
+	<div id="content">
+	{% block content %}{% endblock %}
+	</div>
+	</div>{% if highlights %}<div id="content-highlights">
+		<ul>{% for highlight in highlights %}
+			<li>{% if highlight.image %}<img src="{{highlight.image.image.url}}"/>{% endif %}<a href="{{highlight.link}}">{{highlight.title}}</a></li>
+		{% endfor%}</ul>
+        </div>
+	{% endif %}
+      </div>
+
+      <div id="footer">
+	<div id="left"><a href="http://frodi.is">Skólavefur mennta- og menningarmálaráðuneytisins</a></div>
+	 {# <div id="center"><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Efni Menntagáttar</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://menntagatt.is" property="cc:attributionName" rel="cc:attributionURL">Menntagátt</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.</div> #}
+	<div id="right"><a href="http://um.frodi.is">Um Menntagátt.is</a></div>
+      </div>
+
+    </div>
+  </body>
+</html>

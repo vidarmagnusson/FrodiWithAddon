@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/media/css/accordion.css"/>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+<script type="text/javascript" src="/media/js/canvg.js"></script>
+<script src="/media/js/iceland.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<canvas id="iceland" width="200" height="150"><div id="country_area">{{school.municipality.area}}</div></canvas>
+
+<form>
+<textarea rows="25" cols="50" id="print"></textarea>
+</form>
+{% endblock %}

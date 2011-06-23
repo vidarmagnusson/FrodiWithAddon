@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/media/css/coursebuilder.css"/>                
+{% endblock %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+	{{form.as_p}}
+	<input class="button hidden" id="submit" type="submit" value="Vista"/>
+    </form>
+{% endblock %}

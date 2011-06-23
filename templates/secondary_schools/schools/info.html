@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/media/css/accordion.css"/>
+{% endblock %}
+
+{% block javascript %}
+<script type="text/javascript" src="http://canvg.googlecode.com/svn/trunk/rgbcolor.js"></script>
+<script type="text/javascript" src="/media/js/canvg.js"></script>
+<script src="/media/js/iceland.js"></script>
+{% endblock %}
+
+{% block content %}
+
+<h1>{{school.name}} {% if school.abbreviation %}({{school.abbreviation}}){% endif %}</h1>
+
+<canvas id="iceland" width="200" height="150"><div id="country_area">{{school.municipality.area}}</div></canvas>
+
+<p>
+{{school.address}}<br>
+{{school.municipality}}<br>
+
+{% if school.telephone %}{{school.telephone}}<br/>{% endif %}
+{% if school.fax %}
+{{school.fax}}<br/>
+{% endif %}
+
+{% if school.email %}<a href="mailto:{{school.email}}">{{school.email}}</a><br/>{% endif %}
+{% if school.website %}<a href="{{school.website}}" title="{{school.name}}">{{school.website}}</a><br>{% endif %}
+</p>
+{% endblock %}
